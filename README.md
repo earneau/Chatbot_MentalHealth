@@ -1,6 +1,9 @@
 # Chatbot_MentalHealth
 Chatbot project that
 
+# Requirements
+
+pip install torch torchvision torchaudio
 
 # GitIgnore
 
