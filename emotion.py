@@ -10,14 +10,17 @@ from sklearn.pipeline import Pipeline
 
 class Emotion:
 
-    def process_data(df):
+    def __init__(self):
+        pass
+
+    def process_data(self, df):
         if 'text' in df:
             df['clean text'] = df['text'].apply(nfx.remove_userhandles)
             df['clean text'] = df['clean text'].apply(nfx.remove_stopwords)
 
         return df
     
-    def model(train, test):
+    def model(self, train, test):
         if 'text' in train and 'emotion' in train:
             x_train = train['clean text']
             y_train = train['emotion']
@@ -34,7 +37,7 @@ class Emotion:
         return pipe_lr
     
     
-    def emotion_detection(predictor, sample):
+    def emotion_detection(self, predictor, sample):
        
        emotion = predictor.predict([sample])
        detected_emotion = emotion[0]
