@@ -4,7 +4,7 @@ import os
 import openai
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-openai.api_key = "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"
+openai.api_key = "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"
 
  # openai api token
 emotion = Emotion() # loading emotion detector
@@ -19,8 +19,9 @@ test_df = emotion.process_data(test_df)
 predictor = emotion.model(train_df,test_df) # training model
 
 # function to generate a response based on user input and the detected emotion
-def generate_gpt3_response(user_input, detected_emotion):
+def generate_gpt3_response(user_input):
     # Prepend the detected emotion to the user input
+    detected_emotion = emotion.emotion_detection(predictor, user_input)  # Replace with your emotion detection logic
     input_text = f"User is feeling {detected_emotion}. {user_input}"
 
     completion = openai.ChatCompletion.create(
@@ -40,12 +41,11 @@ def generate_gpt3_response(user_input, detected_emotion):
         return "Failed to extract input text from OpenAI response"
 
 # Example usage
-user_input = input("You: ")
+#user_input = input("You: ")
 
-while user_input not in ['exit', 'quit']:
-    detected_emotion = emotion.emotion_detection(predictor, user_input)  # Replace with your emotion detection logic
-    response = generate_gpt3_response(user_input, detected_emotion)
-    print("Bot:", response)
-    user_input = input("You: ")
+#while user_input not in ['exit', 'quit']:
+#    response = generate_gpt3_response(user_input)
+#    print("Bot:", response)
+#    user_input = input("You: ")
     
     
