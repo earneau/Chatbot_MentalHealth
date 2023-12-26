@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0; /* Background color for the entire page */
+        }
+
+        #container {
+            display: flex;
+            height: 100vh;
+        }
+
+        #left-box, #right-box {
+            width: 250px;
+            background-color: black;
+        }
+
+        #middle-box {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 100%; /* Set a maximum height for the chat box */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end; /* Align messages to the bottom */
+        }
+
+        #input-container {
+            display: flex;
+            align-items: center;
+        }
+
+        #message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+            margin-right: 10px; /* Adjust the margin between input and button */
+        }
+
+        #send-button {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Ensure the image doesn't overflow */
+        }
+
+        #send-button img {
+            width: 100%; /* Make the image fill the button */
+        }
+
+        .message-container {
+            position: relative;
+            margin: 15px 0;
+        }
+
+    </style>
+    <title>Your Chatbot Interface</title>
+</head>
+<body>
+
+<div id="container">
+    <div id="left-box"></div>
+    <div id="middle-box">
+         <!-- Conversation History Container -->
+        <div id="conversation-history" style="overflow-y:auto"></div>
+
+        <!-- Message Input Box -->
+        <div id="input-container">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <button id="send-button" onclick="sendMessage()">
+                <img src="{{ url_for('static', filename='images/send.png') }}" class="image" />
+            </button>
+        </div>
+    </div>
+    <div id="right-box"></div>
+</div>
+
+<!-- JavaScript for sending messages (you can customize this) -->
+<script>
+    function sendMessage() {
+        var user_input = document.getElementById("message-input").value;
+
+        // Clear the user input field
+        document.getElementById("message-input").value = '';
+
+        // Append user message to the conversation history
+        var conversationHistoryContainer = document.getElementById("conversation-history");
+        conversationHistoryContainer.innerHTML += '<div class="message-container user-message">You: ' + user_input + '</div>';
+
+        // Send user input to the server
+        fetch('/sendMessage', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 'user_input': user_input }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Append bot message to the conversation history
+            conversationHistoryContainer.innerHTML += '<div class="message-container bot-message">Bot: ' + data.response + '</div>';
+
+            // Scroll to the bottom of the conversation history to show the latest messages
+            conversationHistoryContainer.scrollTop = conversationHistoryContainer.scrollHeight;
+        });
+    }
+</script>
+
+</body>
+</html>
