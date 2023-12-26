@@ -1,9 +1,11 @@
 # Chatbot_MentalHealth
-Chatbot project that
+Chatbot project for school. The chatbot uses gpt 3.5 turbo api for answer generation and an emotion detection model trained on the following kaggle dataset : https://www.kaggle.com/datasets/praveengovi/emotions-dataset-for-nlp.
 
 # Requirements
 
-pip install torch torchvision torchaudio
+!pip install torch torchvision torchaudio
+!pip install neattext
+!pip install transformers
 
 # GitIgnore
 
