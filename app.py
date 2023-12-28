@@ -14,10 +14,7 @@ def home():
 @app.route('/sendMessage', methods=['POST'])
 def send_message():
     user_input = request.json['user_input']
-
-    # Add your logic to generate a response
     response = chatbot.generate_gpt3_response(user_input)
-
     return jsonify({'response': response})
 
 if __name__ == '__main__':

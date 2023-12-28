@@ -8,7 +8,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Background color for the entire page */
+            background-color: #f0f0f0; /* background color for the entire page */
         }
 
         #container {
@@ -25,10 +25,10 @@
             flex: 1;
             padding: 30px;
             overflow-y: auto;
-            max-height: 100%; /* Set a maximum height for the chat box */
+            max-height: 100%; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Align messages to the bottom */
+            justify-content: flex-end; 
         }
 
         #input-container {
@@ -42,7 +42,7 @@
             border: 1px solid #ccc;
             border-radius: 20px;
             outline: none;
-            margin-right: 10px; /* Adjust the margin between input and button */
+            margin-right: 10px; /* margin between input and button */
         }
 
         #send-button {
@@ -54,11 +54,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Ensure the image doesn't overflow */
+            overflow: hidden; 
         }
 
         #send-button img {
-            width: 100%; /* Make the image fill the button */
+            width: 100%; /* image will fill the button */
         }
 
         .message-container {
@@ -88,19 +88,18 @@
     <div id="right-box"></div>
 </div>
 
-<!-- JavaScript for sending messages (you can customize this) -->
 <script>
     function sendMessage() {
         var user_input = document.getElementById("message-input").value;
 
-        // Clear the user input field
+        // clear the user input field
         document.getElementById("message-input").value = '';
 
-        // Append user message to the conversation history
+        // append user message to the conversation history
         var conversationHistoryContainer = document.getElementById("conversation-history");
         conversationHistoryContainer.innerHTML += '<div class="message-container user-message">You: ' + user_input + '</div>';
 
-        // Send user input to the server
+        // send user input to the server
         fetch('/sendMessage', {
             method: 'POST',
             headers: {
@@ -110,10 +109,10 @@
         })
         .then(response => response.json())
         .then(data => {
-            // Append bot message to the conversation history
+            // append bot message to the conversation history
             conversationHistoryContainer.innerHTML += '<div class="message-container bot-message">Bot: ' + data.response + '</div>';
 
-            // Scroll to the bottom of the conversation history to show the latest messages
+            // scroll to the bottom of the conversation history to show the latest messages
             conversationHistoryContainer.scrollTop = conversationHistoryContainer.scrollHeight;
         });
     }
