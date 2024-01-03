@@ -2,9 +2,10 @@ from emotion import Emotion
 import pandas as pd
 import os
 import openai
+import random
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-openai.api_key = "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"
+openai.api_key = "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"
 
  # openai api token
 emotion = Emotion() # loading emotion detector
@@ -18,9 +19,15 @@ test_df = emotion.process_data(test_df)
 
 predictor = emotion.model(train_df,test_df) # training model
 
+random_responses = ['Hello, I am Emobot ! How can I help you today ?', 'Hi, my name is Emobot, what can I do for you ?', 'Good day, allow me to present myself : I am Emobot, your emotional chat companion !']
+random_hello = ['hello', 'hi', 'hey', 'heyy', 'good day']
+
 # function to generate a response based on user input and the detected emotion
 def generate_gpt3_response(user_input):
     # Prepend the detected emotion to the user input
+    if (user_input.lower() in random_hello):
+        return random.choice(random_responses)
+
     detected_emotion = emotion.emotion_detection(predictor, user_input)  # Replace with your emotion detection logic
     input_text = f"User is feeling {detected_emotion}. {user_input}"
 
