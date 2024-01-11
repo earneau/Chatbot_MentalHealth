@@ -3,13 +3,13 @@ import os
 import openai
 import chatbot
 
-openai.api_key = "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"
+openai.api_key = "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"
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('index_test.html')
+    return render_template('index.html')
 
 @app.route('/sendMessage', methods=['POST'])
 def send_message():
