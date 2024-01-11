@@ -5,7 +5,7 @@ import openai
 import random
 from transformers import GPT2LMHeadModel, GPT2Tokenizer
 
-openai.api_key = "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"
+openai.api_key = "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"
 
  # openai api token
 emotion = Emotion() # loading emotion detector
@@ -29,7 +29,7 @@ def generate_gpt3_response(user_input):
         return random.choice(random_responses)
 
     detected_emotion = emotion.emotion_detection(predictor, user_input)  # Replace with your emotion detection logic
-    input_text = f"User is feeling {detected_emotion}. {user_input}"
+    input_text = f"{user_input}. User is feeling {detected_emotion}."
 
     completion = openai.ChatCompletion.create(
         model = "gpt-3.5-turbo",
